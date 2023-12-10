@@ -39,7 +39,13 @@ yarn-error.*
 # Include Android manifest files
 /android/*
 !/android/app
+
 /android/app/*
 !/android/app/src
+
 /android/app/src/*/*
 !android/app/src/*/*.xml
+!/android/app/src/*/res
+
+/android/app/src/*/res/*
+!/android/app/src/*/res/xml
