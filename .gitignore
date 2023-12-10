@@ -33,3 +33,13 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+/ios
+
+# Include Android manifest files
+/android/*
+!/android/app
+/android/app/*
+!/android/app/src
+/android/app/src/*/*
+!android/app/src/*/*.xml
