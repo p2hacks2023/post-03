@@ -16,14 +16,14 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.bosom"
+      "bundleIdentifier": "com.superneko.sexydynamite.bosom"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.bosom"
+      "package": "com.superneko.sexydynamite.bosom"
     },
     "web": {
       "favicon": "./assets/favicon.png"
