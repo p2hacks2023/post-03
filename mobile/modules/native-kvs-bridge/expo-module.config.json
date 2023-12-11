@@ -1,0 +1,9 @@
+{
+  "platforms": ["ios", "android", "web"],
+  "ios": {
+    "modules": ["NativeKvsBridgeModule"]
+  },
+  "android": {
+    "modules": ["com.superneko.sexydynamite.bosom.nativekvsbridge.NativeKvsBridgeModule"]
+  }
+}
