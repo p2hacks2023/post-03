@@ -31,7 +31,16 @@
     "plugins": [
       "expo-router"
     ],
-    "scheme": "bosom"
+    "scheme": "bosom",
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "75009661-9e99-4349-9352-b5f9efbd5a01"
+      }
+    },
+    "owner": "cathiecode"
   },
   "scheme": "bosom"
 }
