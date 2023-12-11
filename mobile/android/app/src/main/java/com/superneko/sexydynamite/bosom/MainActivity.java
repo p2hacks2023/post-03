@@ -86,8 +86,8 @@ public class MainActivity extends ReactActivity {
 
   @Override
   public void onNewIntent(Intent intent) {
-    updateSuicaInformation();
     this.currentIntent = intent;
+    updateSuicaInformation();
     setIntent(intent);
     super.onNewIntent(intent);
   }
@@ -112,8 +112,8 @@ public class MainActivity extends ReactActivity {
       Log.d(TAG, "End of reading suica tag");
       Log.d(TAG, "Last readed history log length: " + suicaInformation.history.size());
 
-      preference.putInt("lastremain", suicaInformation.history.get(0).getRemain());
-      preference.putString("date", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
+      preference.putInt("last_nfc_remain_credit", suicaInformation.history.get(0).getRemain());
+      preference.putString("last_nfc_update_date", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
 
       preference.commit();
 
