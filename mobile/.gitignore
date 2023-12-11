@@ -33,28 +33,3 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
-
-/ios
-
-# Include Android manifest files
-/android/*
-!/android/app
-
-/android/app/*
-!/android/app/src
-
-/android/app/src/*
-
-!/android/app/src/main
-!/android/app/src/debug
-
-/android/app/src/main/*
-!/android/app/src/main/AndroidManifest.xml
-!/android/app/src/main/res/xml/nfc_tech_filter.xml
-!/android/app/src/main/java
-
-/android/app/src/debug/*
-!/android/app/src/debug/AndroidManifest.xml
-!/android/app/src/debug/res/xml/nfc_tech_filter.xml
-
-.idea
