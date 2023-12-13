@@ -1,15 +1,15 @@
 import { FutokoroService } from "./futokoro";
 
-interface RepositoryItem {
-  getId(): string;
+interface RepositoryItem<K> {
+  getId(): K;
 }
 
-interface Repository<T extends RepositoryItem> {
-  get(id: string): Promise<T>;
+interface Repository<T extends RepositoryItem<K>, K = ReturnType<T["getId"]>> {
+  get(id: K): Promise<T>;
   set(item: T): Promise<void>;
 }
 
-type PrepaidPaymentMethodRepository = Repository<PrepaidPaymentMethod>;
+export type PrepaidPaymentMethodRepository = Repository<PrepaidPaymentMethod>;
 
 type PrepaidPaymentMethodDTO = Readonly<{
   id: string;
@@ -17,7 +17,7 @@ type PrepaidPaymentMethodDTO = Readonly<{
   credit: number;
 }>;
 
-class PrepaidPaymentMethod implements RepositoryItem {
+export class PrepaidPaymentMethod implements RepositoryItem<{userId: string, id: string}> {
   private id: string;
   private userId: string;
   private credit: number;
@@ -28,8 +28,8 @@ class PrepaidPaymentMethod implements RepositoryItem {
     this.credit = dto.credit;
   }
 
-  getId(): string {
-    return this.id;
+  getId(): {userId: string, id: string} {
+    return {id: this.id, userId: this.userId};
   }
 
   getCredit() {
@@ -58,12 +58,12 @@ class PrepaidPaymentMethod implements RepositoryItem {
 }
 
 interface PrepaidPaymentService {
-  add(id: string, userId: string, credit: number): Promise<void>;
-  updateCredit(id: string, credit: number): void;
-  remove(id: string): Promise<void>;
+  add(userId: string, id: string, credit: number): Promise<void>;
+  updateCredit(userId: string, id: string, credit: number): void;
+  remove(userId: string, id: string): Promise<void>;
 }
 
-class PrepaidPaymentServiceImpl implements PrepaidPaymentService {
+export class PrepaidPaymentServiceImpl implements PrepaidPaymentService {
   constructor(
     private repository: PrepaidPaymentMethodRepository,
     private futokoroService: FutokoroService
@@ -73,8 +73,8 @@ class PrepaidPaymentServiceImpl implements PrepaidPaymentService {
     await this.repository.set(new PrepaidPaymentMethod({ id, userId, credit }));
   }
 
-  async updateCredit(id: string, credit: number): Promise<void> {
-    const paymentMethod = await this.repository.get(id);
+  async updateCredit(id: string, userId: string, credit: number): Promise<void> {
+    const paymentMethod = await this.repository.get({id, userId});
 
     if (!paymentMethod) {
       throw new Error("Failed to get payment method");
@@ -96,7 +96,7 @@ class PrepaidPaymentServiceImpl implements PrepaidPaymentService {
     return;
   }
 
-  remove(id: string): Promise<void> {
+  remove(id: string, userId: string): Promise<void> {
     throw new Error("Method not implemented.");
   }
 }
