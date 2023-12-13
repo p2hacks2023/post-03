@@ -1,20 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, View } from "react-native";
+
+import useAuthState from "../src/signin/useAuthState";
+import Dashboard from "../src/pages/Dashboard";
+import Login from "../src/pages/Login";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const {initializing, user} = useAuthState();
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  if (initializing) {
+    return <View>
+      <ActivityIndicator />
+    </View>
+  }
+
+  if (user) {
+    return <Dashboard />
+  } else {
+    return <Login />
+  }
+}
