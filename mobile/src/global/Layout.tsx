@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { LinearGradient } from "expo-linear-gradient";
 import Navigation from "./Navigation";
 import { ReactNode } from "react";
+import Notifications from "./Notifications";
 
 type Props = {
   children: ReactNode;
@@ -36,6 +37,7 @@ export default function Layout({ children }: Props) {
       <View style={styles.inner}>{children}</View>
       <Navigation />
       <StatusBar style="auto" />
+      <Notifications />
     </View>
   );
 }
