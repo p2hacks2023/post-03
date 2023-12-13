@@ -1,7 +1,21 @@
 import { getLoginState } from "../signin/google";
+import type firestoreConstructor from '@react-native-firebase/firestore'
 
 export interface FutokoroService {
   cooldownBySpentEstateJpy(userId: string, spent: number): void;
+}
+
+export class FirebaseFutokoroServiceImpl implements FutokoroService {
+  constructor(private firestore: ReturnType<typeof firestoreConstructor>) {}
+
+  async cooldownBySpentEstateJpy(userId: string, spent: number): Promise<void> {
+    this.firestore.doc(`users/${userId}`).update({
+      cooldown: {
+        spent: spent,
+        lastUpdate: (new Date()).toISOString()
+      }
+    });
+  }
 }
 
 export class LocalFutokoroServiceImpl implements FutokoroService {
