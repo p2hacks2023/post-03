@@ -3,7 +3,7 @@ import { onGoogleLoginRequested } from "../signin/google";
 
 export default function Login() {
   return (
-    <View>
+    <View style={{flex: 1, justifyContent: "center"}}>
       <Button
         title="Google Sign-In"
         onPress={() => {
