@@ -24,3 +24,7 @@ export async function onLogoutRequested() {
   await auth().signOut();
   router.replace("/");
 }
+
+export function getLoginState() {
+  return auth().currentUser;
+}
