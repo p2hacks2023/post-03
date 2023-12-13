@@ -1,6 +1,8 @@
 import { ReactNode, useEffect, useState } from "react";
 import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
 import AuthStateContext from "./AuthStateContext";
+import firestore from '@react-native-firebase/firestore'
+import { FirebaseUserDocument } from "../types";
 
 type Props = {
   children: ReactNode;
@@ -13,6 +15,9 @@ export default function AuthStateProvider({ children }: Props) {
   // Handle user state changes
   const onAuthStateChanged = (user: FirebaseAuthTypes.User | null) => {
     setUser(user ?? undefined);
+    if (user?.uid) {
+      firestore().doc<FirebaseUserDocument>(`users/${user.uid}`).set({});
+    }
     if (initializing) setInitializing(false);
   };
 
