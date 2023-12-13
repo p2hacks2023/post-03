@@ -1,3 +1,5 @@
+import { FutokoroService } from "./futokoro";
+
 interface RepositoryItem {
   getId(): string;
 }
