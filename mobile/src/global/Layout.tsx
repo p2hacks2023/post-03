@@ -31,7 +31,7 @@ export default function Layout({ children }: Props) {
     <View style={styles.container}>
       <LinearGradient
         // Background Linear Gradient
-        colors={["#8b8b8b", "#373737"]}
+        colors={["#ffffff", "#e0e3e9"]}
         style={styles.background}
       />
       <View style={styles.inner}>{children}</View>
