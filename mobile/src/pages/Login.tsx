@@ -1,5 +1,5 @@
 import { Button, View } from "react-native";
-import { onGoogleLoginRequested } from "../signin/google";
+import { onAnonymousLoginRequsted, onGoogleLoginRequested } from "../signin/google";
 
 export default function Login() {
   return (
@@ -9,6 +9,14 @@ export default function Login() {
         onPress={() => {
           onGoogleLoginRequested().then(() =>
             console.log("Signed in with Google!")
+          );
+        }}
+      />
+      <Button
+        title="Start Without login"
+        onPress={() => {
+          onAnonymousLoginRequsted().then(() =>
+            console.log("Anonymous login!")
           );
         }}
       />
