@@ -2,7 +2,6 @@ import { Link, usePathname } from "expo-router";
 import { Text, View, StyleSheet, Pressable, Image } from "react-native";
 import NavigationDashboard from "../../assets/navigation/dashboard.png";
 import NavigationConfig from "../../assets/navigation/config.png";
-import { Svg } from "react-native-svg";
 
 const styles = StyleSheet.create({
   container: {
