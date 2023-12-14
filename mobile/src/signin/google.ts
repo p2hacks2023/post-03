@@ -28,3 +28,7 @@ export async function onLogoutRequested() {
 export function getLoginState() {
   return auth().currentUser;
 }
+
+export async function onAnonymousLoginRequsted() {
+  await auth().signInAnonymously()
+}
