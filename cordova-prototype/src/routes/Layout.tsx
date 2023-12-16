@@ -23,7 +23,7 @@ export default function Layout() {
 
   return (
     <>
-      <div css={{ display: "flex", flex: 1, justifyContent: "center" }}>
+      <div css={{ display: "flex", flex: 1, justifyContent: "center", overflow: "scroll" }}>
         <Outlet />
       </div>
       <Navigator />
