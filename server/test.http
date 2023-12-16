@@ -2,7 +2,7 @@ POST http://localhost:8081/user/create
 
 ###
 
-PUT http://localhost:8081/user/w0nz4lq5ath/credit
+PUT http://localhost:8081/user/6lx6js41t55/credit
 Content-type: application/json; charset=utf-8
 
 {
@@ -10,4 +10,23 @@ Content-type: application/json; charset=utf-8
 }
 
 ###
-http://localhost:8081/user/w0nz4lq5ath/balance
+
+http://localhost:8081/user/6lx6js41t55/balance
+
+### 
+PUT http://localhost:8081/user/6lx6js41t55/switchbot
+Content-type: application/json; charset=utf-8
+
+{
+  "userId": 0,
+  "token": "6fa853f6e9c7252d0aeb206f91a987f664978a43dbd51683473df09f11ff089f353a375e87f0125fd023df9251d2b7ed",
+  "secret": "aec84d021ec191118a5270d71762d2c1"
+}
+
+###
+
+DELETE http://localhost:8081/user/6lx6js41t55/switchbot
+
+###
+
+GET http://localhost:8081/user/6lx6js41t55/switchbot/exists

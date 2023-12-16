@@ -8,6 +8,10 @@ import { useBoolean, useLocalStorage } from "usehooks-ts";
 import Modal from "../features/ui/Modal";
 import useStep from "../utils/useStep";
 import toast from "react-hot-toast";
+import getAuthState from "../features/auth/utils";
+import { mutate } from "swr";
+import useSwitchBotApiTokenExists from "../features/switchbot/useSwitchBotApiTokenExists";
+
 
 const cardTitle = css`
   margin-top: 20rem;
@@ -140,6 +144,87 @@ export default function ConfigPage() {
     setDeviceId(null);
   };
 
+  const {
+    value: isSwitchBotModalOpen,
+    setTrue: openSwitchBotModal,
+    setFalse: closeSwitchBotModal,
+  } = useBoolean(false);
+  const switchBotModalStep = useStep(2);
+  const switchBotApiTokenExists = useSwitchBotApiTokenExists();
+
+  const switchBotTokenInput = useRef<HTMLInputElement>(null);
+  const switchBotSecretInput = useRef<HTMLInputElement>(null);
+
+  const onSwitchBotFormSubmit = async () => {
+    const authState = await getAuthState();
+    const userId = authState?.user?.uid;
+
+    if (!userId) {
+      throw new Error("そんなわけない");
+    }
+
+    if (!switchBotTokenInput.current || !switchBotSecretInput.current) {
+      return;
+    }
+
+    const switchBotToken = switchBotTokenInput.current.value;
+    const switchBotSecret = switchBotSecretInput.current.value;
+
+    // TODO: 送信
+
+    const response = await fetch(
+      import.meta.env.VITE_BOSOM_API_BASE +
+        `/user/${authState.user?.uid}/switchbot`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: userId,
+          token: switchBotToken,
+          secret: switchBotSecret,
+        }),
+      },
+    );
+
+    if (!response.ok) {
+      toast.error("Failed to submit switchbot api");
+      return;
+    }
+
+    mutate(() => true);
+
+    switchBotModalStep.nextStep();
+  };
+
+  const onSwitchBotDisable = async () => {
+    const authState = await getAuthState();
+    const userId = authState?.user?.uid;
+
+    if (!userId) {
+      throw new Error("そんなわけない");
+    }
+
+    const response = await fetch(
+      import.meta.env.VITE_BOSOM_API_BASE +
+        `/user/${authState.user?.uid}/switchbot`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    if (!response.ok) {
+      toast.error("Failed to delete switchbot api key");
+      return null;
+    }
+
+    mutate(() => true);
+  };
+
   return (
     <>
       <div css={{ width: "100%", padding: "20rem" }}>
@@ -168,18 +253,38 @@ export default function ConfigPage() {
               <div css={connectionSectionTitle}>
                 連携中のデバイスはありません
               </div>
-              <div css={css`margin-top: 7rem; text-align: center;`}>
+              <div
+                css={css`
+                  margin-top: 7rem;
+                  text-align: center;
+                `}
+              >
                 <Button onClick={openDeviceModal}>連携する</Button>
               </div>
             </div>
           )}
           <hr css={{ marginBlock: "12rem", marginInline: "4rem" }} />
-          <div css={connectionSectionTitle}>
-            連携中のSwitchBotアカウントはありません
-          </div>
-          <div css={{ textAlign: "center", marginTop: "7rem" }}>
-            <Button onClick={() => {alert("TODO!")}}>連携する</Button>
-          </div>
+          {switchBotApiTokenExists.data ? (
+            <div
+              css={css`
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              `}
+            >
+              <div css={connectedDeviceLabel}>SwitchBot</div>
+              <Button onClick={onSwitchBotDisable}>連携解除</Button>
+            </div>
+          ) : (
+            <div>
+              <div css={connectionSectionTitle}>
+                連携中のSwitchBotアカウントはありません
+              </div>
+              <div css={{ textAlign: "center", marginTop: "7rem" }}>
+                <Button onClick={openSwitchBotModal}>連携する</Button>
+              </div>
+            </div>
+          )}
         </Card>
 
         <div css={cardTitle}>操作</div>
@@ -226,6 +331,107 @@ export default function ConfigPage() {
           </div>
         </Card>
       </div>
+      <Modal
+        isOpen={isSwitchBotModalOpen}
+        onClose={() => {
+          mutate(() => {});
+          closeSwitchBotModal();
+          switchBotModalStep.reset();
+        }}
+      >
+        {() => {
+          switch (switchBotModalStep.step) {
+            case 0:
+              return (
+                <div>
+                  <div css={modalTitle}>SwitchBot連携</div>
+                  <div css={[modalDescription]}>APIキーを入力してください</div>
+                  <input
+                    type="text"
+                    css={[
+                      input,
+                      css`
+                        margin-top: 8rem;
+                      `,
+                    ]}
+                    placeholder="ここにトークンをコピー"
+                    ref={switchBotTokenInput}
+                  />
+                  <input
+                    type="text"
+                    css={[
+                      input,
+                      css`
+                        margin-top: 8rem;
+                      `,
+                    ]}
+                    placeholder="ここにシークレットをコピー"
+                    ref={switchBotSecretInput}
+                  />
+
+                  <div css={modalHint}>
+                    トークン及びシークレットの取得方法は
+                    <span css={link}>こちら</span>
+                    をご覧ください
+                  </div>
+                  <div
+                    css={css`
+                      display: flex;
+                      justify-content: space-between;
+                      margin-top: 68rem;
+                    `}
+                  >
+                    <Button
+                      addCss={css`
+                        background-color: #e0e3e9;
+                      `}
+                      onClick={closeSwitchBotModal}
+                    >
+                      キャンセル
+                    </Button>
+                    <Button
+                      addCss={css`
+                        background-color: #e0e3e9;
+                      `}
+                      onClick={onSwitchBotFormSubmit}
+                    >
+                      完了
+                    </Button>
+                  </div>
+                </div>
+              );
+            case 1:
+              return (
+                <div>
+                  <div css={modalTitle}>SwitchBot連携</div>
+                  <div css={modalSuccess}>連携が完了しました！</div>
+                  <div
+                    css={css`
+                      display: flex;
+                      justify-content: flex-end;
+                      margin-top: 32rem;
+                    `}
+                  >
+                    <Button
+                      addCss={css`
+                        background-color: #e0e3e9;
+                      `}
+                      onClick={() => {
+                        mutate(() => {});
+                        closeSwitchBotModal();
+                        switchBotModalStep.reset();
+                      }}
+                    >
+                      とじる
+                    </Button>
+                  </div>
+                </div>
+              );
+            default:
+              return "このメッセージは表示されないはずだよ";
+          }
+        }}
+      </Modal>
       <Modal
         isOpen={isDeviceModalOpen}
         onClose={() => {
@@ -310,7 +516,7 @@ export default function ConfigPage() {
                 </div>
               );
             default:
-              return "Fuck off";
+              return "このメッセージは表示されないはずだよ";
           }
         }}
       </Modal>
