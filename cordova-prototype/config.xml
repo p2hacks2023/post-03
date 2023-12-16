@@ -15,4 +15,11 @@
     <edit-config file="AndroidManifest.xml" target="/manifest/application" mode="merge">
         <application android:usesCleartextTraffic="true" />
     </edit-config>
+    <platform name="android">
+        <icon density="ldpi" src="res/icons/ldpi.png" />
+        <icon density="mdpi" src="res/icons/mdpi.png" />
+        <icon density="hdpi" src="res/icons/hdpi.png" />
+        <icon density="xhdpi" src="res/icons/xhdpi.png" />
+        <icon density="xxhdpi" src="res/icons/xxhdpi.png" />
+    </platform>
 </widget>
