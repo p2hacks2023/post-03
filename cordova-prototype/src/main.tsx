@@ -9,13 +9,15 @@ import startPrepaidCardService from "./features/prepaid/local.ts";
 import CustomToast from "./features/ui/Toast.tsx";
 import "normalize.css";
 import "./index.css";
+import { startFutokoroTemperatureService } from "./features/futokoro/device.ts";
 
 (window as any).bosom = () => {
   console.log("Application start!");
 
   startPrepaidCardService();
   startFutokoroService();
-
+  startFutokoroTemperatureService();
+  
   const router = createMemoryRouter(routes);
 
   ReactDOM.createRoot(document.getElementById("root")!).render(

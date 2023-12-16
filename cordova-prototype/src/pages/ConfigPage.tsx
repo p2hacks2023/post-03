@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useRef } from "react";
 import useAuth from "../features/auth/useAuth";
 import { startCooling } from "../features/futokoro/device";
 import Card from "../features/ui/Card";

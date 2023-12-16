@@ -1,8 +1,11 @@
 import useBalanceValue from "../features/balance/useBalanceValue";
 import Circle from "../assets/dashboard/circle.png";
+import { useLocalStorage } from "usehooks-ts";
 
 export default function DashboardPage() {
   const { data: balanceData, isLoading: _ } = useBalanceValue();
+  const [temperature] = useLocalStorage("temperature", 26);
+
   return (
     <>
       <div
@@ -27,15 +30,18 @@ export default function DashboardPage() {
         <div css={{ textAlign: "center", zIndex: 1 }}>
           <div>
             <div css={{ fontSize: "15pt" }}>残高</div>
-            <div css={{ fontSize: "30pt", fontWeight: 700, color: "#4F6AFA" }}>{balanceData?.balance}円</div>
+            <div css={{ fontSize: "30pt", fontWeight: 700, color: "#4F6AFA" }}>
+              {balanceData?.balance}円
+            </div>
           </div>
-          <div css={{marginTop: "15pt"}}>
+          <div css={{ marginTop: "15pt" }}>
             <div css={{ fontSize: "15pt" }}>懐温</div>
-            <div css={{ fontSize: "30pt", fontWeight: 700, color: "#4F6AFA" }}>22℃</div>
+            <div css={{ fontSize: "30pt", fontWeight: 700, color: "#4F6AFA" }}>
+              {temperature}℃
+            </div>
           </div>
         </div>
       </div>
     </>
   );
 }
-
