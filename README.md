@@ -48,4 +48,4 @@
 ... Nuxt3
 
 その他開発に使用したツール・サービス
-... Figma、Visual Studio Code、Live Share(共同作業)、Lucid()、Git, GitHub、Discord、利用規約ひな型(https://kiyaku.jp/hinagata/sns.html)、Googleドキュメント、Discord、MediBangPaintPro、FontAwesome、GIMP、PowerPoint
+... Figma、Visual Studio Code、Live Share(共同作業)、Lucid()、Git, GitHub、Discord、利用規約ひな型(https://kiyaku.jp/hinagata/sns.html)　、Googleドキュメント、Discord、MediBangPaintPro、FontAwesome、GIMP、PowerPoint
