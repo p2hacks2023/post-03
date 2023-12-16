@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.superneko.sexydynamite.bosom" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>Futocool</name>
+    <description>Cordova bosom prototype</description>
+    <author email="dev@cordova.apache.org" href="https://cordova.apache.org">
+        Apache Cordova Team
+    </author>
+    <content src="index.html" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-navigation href="http://*/*" /> 
+    <edit-config file="AndroidManifest.xml" target="/manifest/application/activity[@android:name='MainActivity']" mode="merge">
+        <activity android:launchMode="singleTask" />
+    </edit-config>
+    <edit-config file="AndroidManifest.xml" target="/manifest/application" mode="merge">
+        <application android:usesCleartextTraffic="true" />
+    </edit-config>
+</widget>

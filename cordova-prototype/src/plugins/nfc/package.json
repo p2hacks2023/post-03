@@ -1,0 +1,25 @@
+{
+  "name": "bosom-plugin-nfc",
+  "version": "1.0.0",
+  "description": "This is a first plugin !!",
+  "cordova": {
+    "id": "bosom-plugin-nfc",
+    "platforms": [
+      "android"
+    ]
+  },
+  "keywords": [
+    "hello",
+    "world",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "engines": [
+    {
+      "name": "cordova-android",
+      "version": ">5.0.0"
+    }
+  ],
+  "author": "",
+  "license": "Sample License"
+}

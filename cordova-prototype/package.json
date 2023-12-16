@@ -1,0 +1,94 @@
+{
+  "name": "com.superneko.sexydynamite.bosom",
+  "displayName": "Bosom",
+  "version": "1.0.0",
+  "description": "A sample Apache Cordova application that responds to the deviceready event.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "prepare": "node scripts/prepare.js",
+    "clean": "node scripts/clean.js",
+    "build": "node scripts/build.js",
+    "dev": "node scripts/dev.js",
+    "preview": "vite",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ecosystem:cordova"
+  ],
+  "author": "Apache Cordova Team",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/cordova": "^11.0.3",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.17",
+    "@vitejs/plugin-react": "^4.2.1",
+    "address": "^2.0.1",
+    "bosom-plugin-nfc": "file:src/plugins/nfc",
+    "cordova": "^12.0.0",
+    "cordova-android": "^12.0.1",
+    "cordova-plugin-advanced-websocket": "^1.1.7",
+    "cordova-plugin-ble-central": "^1.7.2",
+    "cordova-plugin-firebasex": "^16.3.0",
+    "fs-extra": "^11.2.0",
+    "plugman": "^3.0.1",
+    "prettier": "^3.1.1",
+    "prettier-plugin-java": "^2.5.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.9"
+  },
+  "cordova": {
+    "platforms": [
+      "android"
+    ],
+    "plugins": {
+      "bosom-plugin-nfc": {},
+      "cordova-plugin-firebasex": {
+        "FIREBASE_ANALYTICS_COLLECTION_ENABLED": "true",
+        "FIREBASE_PERFORMANCE_COLLECTION_ENABLED": "true",
+        "FIREBASE_CRASHLYTICS_COLLECTION_ENABLED": "true",
+        "FIREBASE_FCM_AUTOINIT_ENABLED": "true",
+        "FIREBASE_ANALYTICS_WITHOUT_ADS": "false",
+        "ANDROID_ICON_ACCENT": "#FF00FFFF",
+        "ANDROID_FIREBASE_PERFORMANCE_MONITORING": "false",
+        "ANDROID_PLAY_SERVICES_TAGMANAGER_VERSION": "18.0.4",
+        "ANDROID_PLAY_SERVICES_AUTH_VERSION": "20.7.0",
+        "ANDROID_FIREBASE_ANALYTICS_VERSION": "21.5.0",
+        "ANDROID_FIREBASE_MESSAGING_VERSION": "23.3.1",
+        "ANDROID_FIREBASE_CONFIG_VERSION": "21.5.0",
+        "ANDROID_FIREBASE_PERF_VERSION": "20.5.0",
+        "ANDROID_FIREBASE_AUTH_VERSION": "22.2.0",
+        "ANDROID_FIREBASE_INAPPMESSAGING_VERSION": "20.4.0",
+        "ANDROID_FIREBASE_FIRESTORE_VERSION": "24.9.1",
+        "ANDROID_FIREBASE_FUNCTIONS_VERSION": "20.4.0",
+        "ANDROID_FIREBASE_IID_VERSION": "21.1.0",
+        "ANDROID_FIREBASE_INSTALLATIONS_VERSION": "17.2.0",
+        "ANDROID_FIREBASE_CRASHLYTICS_VERSION": "18.5.1",
+        "ANDROID_FIREBASE_CRASHLYTICS_NDK_VERSION": "18.5.1",
+        "ANDROID_GSON_VERSION": "2.9.0",
+        "ANDROID_FIREBASE_PERF_GRADLE_PLUGIN_VERSION": "1.4.2",
+        "ANDROID_GRPC_OKHTTP": "1.46.0"
+      },
+      "cordova-plugin-advanced-websocket": {},
+      "cordova-plugin-ble-central": {
+        "BLUETOOTH_USAGE_DESCRIPTION": "For connection to futocool device",
+        "IOS_INIT_ON_LOAD": "true",
+        "BLUETOOTH_RESTORE_STATE": "true",
+        "ACCESS_BACKGROUND_LOCATION": "true"
+      }
+    }
+  },
+  "dependencies": {
+    "@emotion/core": "^11.0.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "jotai": "^2.6.0",
+    "normalize.css": "^8.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
+    "react-router-dom": "^6.21.0",
+    "swr": "^2.2.4",
+    "usehooks-ts": "^2.9.1"
+  }
+}

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- id: プラグインの識別子、version: プラグインのバージョン -->
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  id="bosom-plugin-nfc"
+  version="1.0.0">
+
+  <!-- プラグイン名 -->
+  <name>BosomNfcPlugin</name>
+  <!-- プラグインの説明 -->
+  <description>This is a first plugin !!</description>
+  <!-- 作者 -->
+  <author>cigalecigales</author>
+  <!-- キーワード -->
+  <keywords>hello, world</keywords>
+  <!-- ライセンス -->
+  <license>Sample License</license>
+  <!-- プラグインがサポートするCordovaのバージョン -->
+  <engines>
+    <engine name="cordova-android" version=">5.0.0"/>
+  </engines>
+
+  <platform name="android">
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="BosomNfcPlugin" >
+          <param name="android-package" value="com.superneko.sexydynamite.bosom.plugin.nfc.ActivityPlugin"/>
+          <param name="onload" value="true" />
+      </feature>
+    </config-file>
+
+    <config-file target="AndroidManifest.xml" parent="/*">
+      <uses-permission android:name="android.permission.INJECT_EVENTS"/>
+    </config-file>
+
+    <!-- NFC関連-->
+    <!--<edit-config file="AndroidManifest.xml" target="/manifest/application/activity[@android:name='MainActivity']" mode="merge">
+      <activity android:launchMode="singleTask" />
+    </edit-config>-->
+    <config-file target="AndroidManifest.xml" parent="/*">
+      <uses-permission android:name="android.permission.NFC" />
+      <uses-feature android:name="android.hardware.nfc" android:required="true" />
+    </config-file>
+    <config-file target="AndroidManifest.xml" parent="/*/*/activity">
+      <intent-filter>
+        <action android:name="android.nfc.action.TECH_DISCOVERED" />
+      </intent-filter>
+      <meta-data android:name="android.nfc.action.TECH_DISCOVERED" android:resource="@xml/nfc_tech_filter" />
+    </config-file>
+
+    <source-file src="src/android/ActivityPlugin.java" target-dir="src/com/superneko/sexydynamite/bosom/plugin/nfc/"/>
+    <source-file src="src/android/SuicaHistory.java" target-dir="src/com/superneko/sexydynamite/bosom/plugin/nfc/"/>
+    <source-file src="src/android/SuicaInformation.java" target-dir="src/com/superneko/sexydynamite/bosom/plugin/nfc/"/>
+    
+    <resource-file src="src/android/nfc_tech_filter.xml" target="res/xml/nfc_tech_filter.xml" />
+  </platform>
+</plugin>
