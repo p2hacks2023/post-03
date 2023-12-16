@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import startFutokoroService from "./features/futokoro/service.ts";
 import FutokoroServiceProvider from "./features/futokoro/FutokoroServiceProvider.tsx";
 import startPrepaidCardService from "./features/prepaid/local.ts";
+import CustomToast from "./features/ui/Toast.tsx";
 import "normalize.css";
 import "./index.css";
 
@@ -22,7 +23,11 @@ import "./index.css";
       <FutokoroServiceProvider>
         <RouterProvider router={router} />
       </FutokoroServiceProvider>
-      <Toaster />
+      <Toaster>
+        {
+          toast => <CustomToast toast={toast} />
+        }
+      </Toaster>
     </React.StrictMode>,
   );
 };
