@@ -6,7 +6,6 @@ import DashboardNavigation from "../../assets/navigation/dashboard.png";
 const navigator = css`
   position: relative;
   width: 100%;
-  background-color: red;
   aspect-ratio: 750/88;
 `;
 
