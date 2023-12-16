@@ -18,13 +18,15 @@ export default function Layout() {
   }
 
   if (!authState.user) {
-    return <LoginPage />
+    return <LoginPage />;
   }
 
-  return <>
-    <div css={{display: "flex", flex: 1}}>
-      <Outlet />
-    </div>
-    <Navigator />
-  </>
+  return (
+    <>
+      <div css={{ display: "flex", flex: 1, justifyContent: "center" }}>
+        <Outlet />
+      </div>
+      <Navigator />
+    </>
+  );
 }
