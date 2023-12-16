@@ -10,6 +10,7 @@
     "clean": "node scripts/clean.js",
     "build": "node scripts/build.js",
     "dev": "node scripts/dev.js",
+    "dev-likebuild": "node scripts/dev-likebuild.js",
     "preview": "vite",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

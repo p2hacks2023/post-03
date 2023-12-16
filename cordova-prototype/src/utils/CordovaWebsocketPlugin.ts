@@ -1,6 +1,4 @@
-import { FirebasePlugin } from "cordova-plugin-firebasex";
-
-let rawWebsocketPlugin: Promise<FirebasePlugin> = new Promise((resolve, reject) => {
+let rawWebsocketPlugin: Promise<any> = new Promise((resolve, reject) => {
   document.addEventListener("deviceready", () => {
     const mayFirebasePlugin = (window as any).CordovaWebsocketPlugin
 

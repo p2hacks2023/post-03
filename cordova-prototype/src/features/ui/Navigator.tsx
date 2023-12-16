@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { Link, useLocation, useResolvedPath } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ConfigNavigation from "../../assets/navigation/config.png";
 import DashboardNavigation from "../../assets/navigation/dashboard.png";
 

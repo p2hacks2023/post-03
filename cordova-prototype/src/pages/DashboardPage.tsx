@@ -1,11 +1,8 @@
-import useAuthState from "../features/auth/useAuthState";
 import useBalanceValue from "../features/balance/useBalanceValue";
 import Circle from "../assets/dashboard/circle.png";
-import CircleEnabled from "../assets/dashboard/circle_enabled.png";
 
 export default function DashboardPage() {
-  const { data: balanceData, isLoading: isBalanceLoading } = useBalanceValue();
-  const [authState] = useAuthState();
+  const { data: balanceData, isLoading: _ } = useBalanceValue();
   return (
     <>
       <div
@@ -42,4 +39,3 @@ export default function DashboardPage() {
   );
 }
 
-//         ユーザー: {authState.user?.uid}
