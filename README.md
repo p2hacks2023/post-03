@@ -1,37 +1,96 @@
 # P2HACKS2023 アピールシート 
 
-プロダクト名  
-... 
+プロダクト名
+  ... 
+futocool
 
-コンセプト  
-...  
+コンセプト
+  ... 
+現金じゃないと体感出来ない「懐がひんやりする」と言う体験を、電子マネーユーザにも体感してもらう
 
-対象ユーザ  
-...  
+対象ユーザ
+  ...  
+- 現金じゃないと使った感じがしない人
+- 電子マネーにいくら残ってるか確認しない人
+- 使ってしまった自分を戒めたい人
 
-利用の流れ  
-...  
+利用の流れ
+  ...  
+実際のお店で決済をします。その後決済をした電子マネーをスマホにかざすと、futocoolデバイスが連動し、懐がひんやりする
 
-推しポイント  
-...  
+推しポイント
+  ...  
 
 スクリーンショット(任意)  
 
 ## 開発体制  
 
-役割分担  
-...  
+役割分担
+  ...  
+- 酒井　リーダー、ハードウェア
+- 竹田　フロントエンド、バックエンド
+- 中川　UI/UXデザイン
+- 朝日　動画、プレゼン
 
-開発における工夫した点  
-...  
+開発における工夫した点
+　　...  
+- ロジックとDBと完全に分離した
+  - その結果、Firebaseのクライアントサイドで作成したロジックをバックエンドにスムーズに統合することができた
+- コードのディレクトリを役割(フック, ロジック, 通信)ではなく機能で分割した
+  - これにより、機能間で暗黙の依存が発生することがなくなった
 
 ## 開発技術 
 
-利用したプログラミング言語  
-...  
+利用したプログラミング言語
+　　...  
+- TypeScript(フロントエンド部分、バックエンド部分)
+- Java(Bluetooth, NFC通信部分)
+- Python(ハードウェア)
 
-利用したフレームワーク・ライブラリ  
-...  
+利用したフレームワーク・ライブラリ
+  ...  
+- バックエンド
+  - Node.js
+  - Fastify
+    - @fastify/cors
+    - @fastify/websocket
+
+- フロントエンド
+  - Apache Cordova
+    - Cordova Plugin for using WebSockets
+    - Bluetooth Low Energy (BLE) Central Plugin for Apache Cordova
+  - React
+    - Jotai
+    - SWR
+    - react-hot-toast
+    - React Router
+    - usehooks-ts
+
+- デバイス
+  - Kitaca, nimoca
+  - systemd
+  - Node.js
+
+- プロトタイプ
+  - React Native(Expo)
+    - React Native Firebase
+  - Firebase
 
 その他開発に使用したツール・サービス
-...  
+  ...
+- デザイン・設計
+  - Figma
+  - FigJam
+
+- ビルド
+  - Vite
+  - Expo Application Services
+  - Android Studio
+
+- コミュニケーション
+  - notion
+  - Discord
+
+- デプロイ
+  - Vultr(VPS)
+  - Cloudflare
