@@ -1,0 +1,13 @@
+POST http://localhost:8081/user/create
+
+###
+
+PUT http://localhost:8081/user/w0nz4lq5ath/credit
+Content-type: application/json; charset=utf-8
+
+{
+  "credit": 0
+}
+
+###
+http://localhost:8081/user/w0nz4lq5ath/balance
