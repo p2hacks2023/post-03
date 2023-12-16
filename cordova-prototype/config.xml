@@ -21,5 +21,6 @@
         <icon density="hdpi" src="res/icons/hdpi.png" />
         <icon density="xhdpi" src="res/icons/xhdpi.png" />
         <icon density="xxhdpi" src="res/icons/xxhdpi.png" />
+        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/icons/512.png"/>
     </platform>
 </widget>
