@@ -20,8 +20,11 @@ futocool
 
 推しポイント
   ...  
+「懐が寒い」という慣用句を物理的に体感することができる
 
 スクリーンショット(任意)  
+| ![Screenshot_2023-12-17-01-11-38-779_com superneko sexydynamite bosom](https://github.com/p2hacks2023/post-03/assets/79957387/3622250a-0fee-4915-8222-27e65e76b639) | ![Screenshot_20231216-222641](https://github.com/p2hacks2023/post-03/assets/79957387/d70bb885-25c7-4503-9770-3c97cb800a8c) | ![Screenshot_20231216-224739](https://github.com/p2hacks2023/post-03/assets/79957387/112da47e-d865-41d2-bcb7-c704ffa8250e) |
+| -- | -- | -- |
 
 ## 開発体制  
 
@@ -32,8 +35,7 @@ futocool
 - 中川　UI/UXデザイン
 - 朝日　動画、プレゼン
 
-開発における工夫した点
-　　...  
+開発における工夫した点  ...  
 - ロジックとDBと完全に分離した
   - その結果、Firebaseのクライアントサイドで作成したロジックをバックエンドにスムーズに統合することができた
 - コードのディレクトリを役割(フック, ロジック, 通信)ではなく機能で分割した
@@ -42,7 +44,7 @@ futocool
 ## 開発技術 
 
 利用したプログラミング言語
-　　...  
+  ...  
 - TypeScript(フロントエンド部分、バックエンド部分)
 - Java(Bluetooth, NFC通信部分)
 - Python(ハードウェア)
