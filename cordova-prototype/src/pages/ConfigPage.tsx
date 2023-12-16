@@ -1,10 +1,10 @@
-import { useCallback } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import useAuth from "../features/auth/useAuth";
 import { startCooling } from "../features/futokoro/device";
 import Card from "../features/ui/Card";
 import Button from "../features/ui/Button";
 import { css } from "@emotion/react";
-import { useBoolean } from "usehooks-ts";
+import { useBoolean, useLocalStorage } from "usehooks-ts";
 import Modal from "../features/ui/Modal";
 import useStep from "../utils/useStep";
 import toast from "react-hot-toast";
@@ -24,6 +24,15 @@ const connectionSectionTitle = css`
   color: #4f6afa;
   font-weight: 700;
   text-align: center;
+`;
+
+const connectedDeviceLabel = css`
+  color: #5f6877;
+  font-family: Noto Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 `;
 
 const debugGridButton = css`
@@ -109,6 +118,27 @@ export default function ConfigPage() {
   } = useBoolean(false);
 
   const deviceModalStep = useStep(2);
+  const [deviceId, setDeviceId] = useLocalStorage<string | null>(
+    "deviceid",
+    null,
+  );
+  const deviceIdInput = useRef<HTMLInputElement>(null);
+
+  const onDeviceIdSubmit = () => {
+    if (!deviceIdInput.current) {
+      return;
+    }
+
+    const deviceId = deviceIdInput.current.value;
+
+    setDeviceId(deviceId);
+
+    deviceModalStep.nextStep();
+  };
+
+  const onDeviceDisable = () => {
+    setDeviceId(null);
+  };
 
   return (
     <>
@@ -122,16 +152,33 @@ export default function ConfigPage() {
         </div>
         <div css={cardTitle}>連携中</div>
         <Card>
-          <div css={connectionSectionTitle}>連携中のデバイスはありません</div>
-          <div css={{ textAlign: "center", marginTop: "7rem" }}>
-            <Button onClick={openDeviceModal}>連携する</Button>
-          </div>
+          {deviceId ? (
+            <div
+              css={css`
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              `}
+            >
+              <div css={connectedDeviceLabel}>デバイス</div>
+              <Button onClick={onDeviceDisable}>連携解除</Button>
+            </div>
+          ) : (
+            <div>
+              <div css={connectionSectionTitle}>
+                連携中のデバイスはありません
+              </div>
+              <div css={css`margin-top: 7rem; text-align: center;`}>
+                <Button onClick={openDeviceModal}>連携する</Button>
+              </div>
+            </div>
+          )}
           <hr css={{ marginBlock: "12rem", marginInline: "4rem" }} />
           <div css={connectionSectionTitle}>
             連携中のSwitchBotアカウントはありません
           </div>
           <div css={{ textAlign: "center", marginTop: "7rem" }}>
-            <Button onClick={() => {}}>連携する</Button>
+            <Button onClick={() => {alert("TODO!")}}>連携する</Button>
           </div>
         </Card>
 
@@ -170,12 +217,14 @@ export default function ConfigPage() {
               gap: "20rem 37rem",
             }}
           >
-            <Button addCss={debugGridButton} onClick={() => toast.success("Hello!")}>
+            <Button
+              addCss={debugGridButton}
+              onClick={() => toast.success("Hello!")}
+            >
               Toast success
             </Button>
           </div>
         </Card>
-
       </div>
       <Modal
         isOpen={isDeviceModalOpen}
@@ -202,6 +251,7 @@ export default function ConfigPage() {
                       `,
                     ]}
                     placeholder="ここにシリアルコードをコピー"
+                    ref={deviceIdInput}
                   />
                   <div css={modalHint}>
                     シリアルコードの取得方法は<span css={link}>こちら</span>
@@ -226,7 +276,7 @@ export default function ConfigPage() {
                       addCss={css`
                         background-color: #e0e3e9;
                       `}
-                      onClick={deviceModalStep.nextStep}
+                      onClick={onDeviceIdSubmit}
                     >
                       完了
                     </Button>

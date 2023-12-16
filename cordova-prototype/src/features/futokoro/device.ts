@@ -12,30 +12,41 @@ export function startCooling(sec: number) {
 
   const onSuccess = () => {
     toast.success("懐温を下げています…");
-  }
+  };
 
   const onConnect = (device: BLECentralPlugin.PeripheralData) => {
     const data = new Uint8Array(1);
     data[0] = sec;
 
+    if (device.id !== localStorage.getItem("deviceid")) {
+      return null;
+    }
+
     const onPushed = () => {
       ble.disconnect(device.id);
       onSuccess();
-    }
+    };
 
     const onError = () => {
       ble.disconnect(device.id);
-    }
+    };
 
-    ble.write(device.id, SERVICE_ID, PUSH_CHARACTERISTIC_ID, data.buffer, onPushed, onError);
-  }
+    ble.write(
+      device.id,
+      SERVICE_ID,
+      PUSH_CHARACTERISTIC_ID,
+      data.buffer,
+      onPushed,
+      onError,
+    );
+  };
 
   const onFound = (device: BLECentralPlugin.PeripheralData) => {
     console.log("Found cooling device", device.id);
     const id = device.id;
 
     ble.connect(id, onConnect, console.error);
-  }
+  };
 
   console.log("Start scan");
 
