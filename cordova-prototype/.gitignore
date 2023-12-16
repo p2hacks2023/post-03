@@ -28,3 +28,4 @@ node_modules/
 /www
 
 google-services.json
+.env.local
