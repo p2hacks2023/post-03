@@ -9,7 +9,7 @@ export default function Layout() {
   const [authState] = useAuthState();
 
   useOnFutokoroCooling((sec) => {
-    toast.error(sec.toString());
+    toast.error("懐温を下げています…");
   });
 
   if (authState.initializing) {
