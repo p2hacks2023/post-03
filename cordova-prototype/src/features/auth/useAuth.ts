@@ -1,4 +1,4 @@
-import { requestAnonymousLogin } from "./control";
+import { requestAnonymousLogin, requestLogout } from "./control";
 import useAuthState from "./useAuthState";
 import { useCallback, useEffect } from "react";
 
@@ -21,6 +21,7 @@ export default function useAuth() {
   }, []);
 
   const logout = useCallback(async () => {
+    await requestLogout();
     setAuthState({
       initializing: false,
       user: undefined

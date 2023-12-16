@@ -1,5 +1,3 @@
-import firebasePlugin from "../../utils/firebasePlugin";
-
 export async function requestAnonymousLogin(): Promise<{ uid: string }> {
   const response = await fetch(
     import.meta.env.VITE_BOSOM_API_BASE + "/user/create",
@@ -21,6 +19,7 @@ export async function requestAnonymousLogin(): Promise<{ uid: string }> {
   return result;
 }
 
-export async function onLogoutRequested() {
-  await new Promise<void>((await firebasePlugin()).signOutUser);
+export async function requestLogout(): Promise<void> {
+  // TODO: Logout request
+  return;
 }
