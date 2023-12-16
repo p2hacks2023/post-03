@@ -547,7 +547,7 @@ function main() {
     futokoroEventService,
     switchbotService
   );
-  webLayer.run(8081);
+  webLayer.run(process.env.PORT ? parseInt(process.env.PORT) : 8081);
 }
 
 main();
