@@ -18,7 +18,15 @@ export function startCooling(sec: number) {
     const data = new Uint8Array(1);
     data[0] = sec;
 
-    if (device.id !== localStorage.getItem("deviceid")) {
+    const deviceIdJson = localStorage.getItem("deviceid");
+
+    if (!deviceIdJson) {
+      return null;
+    }
+
+    const deviceId = JSON.parse(deviceIdJson);
+
+    if (device.id !== deviceId) {
       return null;
     }
 
