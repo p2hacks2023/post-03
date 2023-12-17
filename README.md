@@ -85,6 +85,8 @@ futocool
 - デザイン・設計
   - Figma
   - FigJam
+  - Adobe Premire Pro
+  - Adobe Illustrator
 
 - ビルド
   - Vite
@@ -94,6 +96,7 @@ futocool
 - コミュニケーション
   - notion
   - Discord
+  - Canva
 
 - デプロイ
   - Vultr(VPS)
