@@ -70,6 +70,7 @@ futocool
     - react-hot-toast
     - React Router
     - usehooks-ts
+    - emotion
 
 - デバイス
   - Kitaca, nimoca
