@@ -1,19 +1,26 @@
 from pybleno import *
 import RPi.GPIO as GPIO
 import threading
+import dht11
+import time
+import datetime
 
 bleno = Bleno()
 
 SERVICE_UUID = '4c210b69-05e5-44e2-9ae2-c2b1a75df030'
 FANCONTROL_CHARACTERISTIC_UUID = 'bde2f59b-4408-48dc-86bc-231841c8390b'
-
-SERIAL_CODE = 'edb77dfe'
+READ_TEMPERATURE_CHARACTERISTIC_ID = 'cf0cba4f-cf76-4286-aaca-a528923d075d'
 
 fan_pin = 4
+dht_pin = 14
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(fan_pin,GPIO.OUT)
+GPIO.cleanup()
+instance = dht11.DHT11(pin=dht_pin)
+
+temperature = 23
 
 def fan_on():
     GPIO.output(fan_pin,True)
@@ -28,6 +35,16 @@ def run_fun_impl(sec):
     time.sleep(sec)
     fan_off()
 
+def run_read_temperature():
+    while True:
+        result = instance.read()
+        if result.is_valid():
+            print("Last valid input: " + str(datetime.datetime.now()))
+            print("Temperature: %d C" % result.temperature)
+            temperature = result.temperature
+
+        time.sleep(5)
+
 def run_fan(sec):
     threading.Thread(target=run_fun_impl, args=(sec,)).start()
 
@@ -36,16 +53,12 @@ class ApproachCharacteristic(Characteristic):
     def __init__(self):
         Characteristic.__init__(self, {
             'uuid': FANCONTROL_CHARACTERISTIC_UUID,
-            'properties': ['read', 'write'],
+            'properties': ['write'],
             'value': None
         })
 
         self._value = str(0).encode()
         self._updateValueCallback = None
-
-    def onReadRequest(self, offset, callback):
-        print('ApproachCharacteristic - onReadRequest')
-        callback(result=Characteristic.RESULT_SUCCESS, data=self._value)
 
     def onWriteRequest(self, data, offset, withoutResponse, callback):
         print('ApproachCharacteristic - onWriteRequest')
@@ -58,6 +71,22 @@ class ApproachCharacteristic(Characteristic):
         run_fan(received_value)
 
         callback(self.RESULT_UNLIKELY_ERROR)
+
+class ReadTempertureCharacteristic(Characteristic):
+
+    def __init__(self):
+        Characteristic.__init__(self, {
+            'uuid': READ_TEMPERATURE_CHARACTERISTIC_ID,
+            'properties': ['read'],
+            'value': None
+        })
+
+        self._value = str(0).encode()
+        self._updateValueCallback = None
+
+    def onReadRequest(self, offset, callback):
+        print('ReadTempertureCharacteristic - onReadRequest')
+        callback(result=Characteristic.RESULT_SUCCESS, data=bytes([temperature]))
 
 
 def onStateChange(state):
@@ -72,6 +101,7 @@ def onStateChange(state):
 bleno.on('stateChange', onStateChange)
 
 approachCharacteristic = ApproachCharacteristic()
+readTempertureCharacteristic = ReadTempertureCharacteristic()
 
 
 def onAdvertisingStart(error):
@@ -82,7 +112,8 @@ def onAdvertisingStart(error):
             BlenoPrimaryService({
                 'uuid': SERVICE_UUID,
                 'characteristics': [
-                    approachCharacteristic
+                    approachCharacteristic,
+                    readTempertureCharacteristic
                 ]
             })
         ])
@@ -92,23 +123,4 @@ bleno.on('advertisingStart', onAdvertisingStart)
 
 bleno.start()
 
-
-import time
-
-counter = 0
-
-def task():
-    global counter
-    counter += 1
-    approachCharacteristic._value = str(counter).encode()
-    if approachCharacteristic._updateValueCallback:
-
-        print('Sending notification with value : ' + str(approachCharacteristic._value))
-
-        notificationBytes = str(approachCharacteristic._value).encode()
-        approachCharacteristic._updateValueCallback(data=notificationBytes)
-
-
-while True:
-    task()
-    time.sleep(1)
+threading.Thread(target=run_read_temperature).start()

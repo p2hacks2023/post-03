@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 const SERVICE_ID = "4c210b69-05e5-44e2-9ae2-c2b1a75df030";
 const PUSH_CHARACTERISTIC_ID = "bde2f59b-4408-48dc-86bc-231841c8390b";
 const READ_TEMPERATURE_CHARACTERISTIC_ID =
-  "bde2f59b-4408-48dc-86bc-231841c8390b";
+  "cf0cba4f-cf76-4286-aaca-a528923d075d";
 
 export function startCooling(sec: number) {
   if (sec > 200) {
